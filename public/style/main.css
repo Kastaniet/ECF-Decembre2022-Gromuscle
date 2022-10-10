@@ -1,0 +1,51 @@
+main {
+    margin-bottom: 8% !important;
+}
+
+body {
+    background-color: #fafbfc;
+}
+
+.navbar {
+    box-shadow: 0 0 5px 0 lightgrey;
+}
+
+html {
+    height: 100%;
+}
+
+/* Button */
+
+.btn-connexion {
+    background-color: #88c541;
+}
+
+.btn-connexion:hover {
+    transform: scale(1.05);
+    background-color: #add77b;
+}
+
+.btn-connexion:active {
+    background-color: #74a232;
+}
+
+
+/* Formulaire */
+
+form input {
+    padding: 5px !important;
+    padding-left: 10px ! important;
+    background-color: #f7fafd;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+}
+
+form input:focus {
+    box-shadow: inset 2px 2px 4px #d1d9e6, inset -4px -4px 4px #f9f9f9;
+    outline: none;
+}
+
+.form-control {
+    font-size: 15px;
+}
