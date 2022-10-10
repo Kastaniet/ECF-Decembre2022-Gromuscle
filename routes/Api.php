@@ -11,7 +11,6 @@ class Api
     {
         $videoApiController = new SampleApiController();
 
-        Route::Add('/api/sample', [$videoApiController, 'sample']);
     }
 }
 

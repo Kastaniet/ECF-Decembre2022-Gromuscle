@@ -22,7 +22,8 @@ class Account extends WebController
     {
         if (isset($_POST['email']) && isset($_POST['password'])) {
             if ($this->account->login($_POST["email"], $_POST["password"])) {
-                $this->redirect("me");
+                $id = "SELECT id FROM users WHERE email =". $_POST['email'];
+                $this->redirect("liste/$id");
             }
         }
 
@@ -67,8 +68,9 @@ class Account extends WebController
         $this->redirect("/API_test/login");
     }
 
-    function me(): string
+    function liste($id): string
     {
-        return Template::render("views/account/me.php", array());
+        $users = $this->account->getUsersbyId($id);
+        return Template::render("views/account/liste.php", array('users' => $users));
     }
 }

@@ -21,7 +21,7 @@ class Web
         Route::Add('/register', [$account, 'register']);
 
         if (SessionHelpers::isLogin()) {
-            Route::Add('/me', [$account, 'me']);
+            Route::Add('/liste/{id}', [$account, 'liste']);
             Route::Add('/logout', [$account, 'logout']);
         }
     }
