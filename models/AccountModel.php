@@ -23,30 +23,20 @@ class AccountModel extends SQL
         return true;
     }
 
-    public function getAllUsers()
+    public function getUsersId($email) 
     {
-        return $this->getAll();
-    }
-
-    public function getId()
-    {
-        $stmt = $this->getPdo()->prepare("SELECT 'id' FROM users");
-        $stmt->execute();
-        return $stmt->fetch(\PDO::FETCH_OBJ);
-    }
-
-    public function getOneUser($id) 
-    {
-        return $this->getOne($id);
+        $req = "SELECT * FROM users WHERE `email` = '" . $email . "'";
+        $stmt = $this->getPdo()->prepare($req);
+        $stmt->execute([]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     function getUsersbyId($id)
     {
         // Utilisation d'une query à la place d'un simple getOne car la requête
         // est réalisé sur un champ différent que l'ID de la table.
-
-        $stmt = $this->getPdo()->prepare("SELECT * FROM users WHERE id = ?");
-        $stmt->execute([$id]);
-        return $stmt->fetch(\PDO::FETCH_OBJ);
+        $stmt = $this->getPdo()->prepare("SELECT id FROM `users` WHERE id = '" . $id. "'");
+        $stmt->execute([]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 }

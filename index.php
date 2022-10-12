@@ -4,6 +4,7 @@ use routes\base\Router;
 use utils\SessionHelpers;
 
 include("autoload.php");
+include("utils/function.php");
 
 /*
  * Permet l'utilisation du serveur PHP interne et l'affichage des contenus static.
