@@ -66,10 +66,10 @@ class ClientsModele extends SQL
         return $this->getPdo()->lastInsertId();
     }
 
-    public function getByClientId($clientId): Client{
-        $query = "SELECT * FROM client WHERE id = ?";
+    public function getByClientId($clientId): Client {
+        $query = "SELECT * FROM client WHERE id = '" . $clientId . "'";
         $stmt = SQL::getPdo()->prepare($query);
-        $stmt->execute([$clientId]);
+        $stmt->execute([]);
         return $stmt->fetch(\PDO::FETCH_CLASS, Client::class);
     }
 

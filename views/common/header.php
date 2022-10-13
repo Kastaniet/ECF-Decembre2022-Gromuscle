@@ -10,14 +10,12 @@
     <link rel="stylesheet" href="public/style/main.css">
 </head>
 
-<body class="<?= isset($_SESSION['id']) ? 'brick' : '' ?>">
+<body class="<?= isset($_SESSION['id']) ? 'brick' : ''  ?>">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <?php
-            if (isset($_GET['path']) == "liste/$_SESSION[id]") {
+            if (isset($_GET['path'])) {
                 echo '<a class="navbar-brand" href="/API_test">← Retour</a>';
-            } elseif (empty($_GET == "")) {
-                echo '<a class="navbar-brand" href="/API_test">Gromuscle</a>';
             } else {
                 echo '<a class="navbar-brand" href="/API_test">Gromuscle</a>';
             }
@@ -30,9 +28,9 @@
                     echo '<li class="nav-item"><a href="/API_test/logout" class="nav-link">Déconnexion</a></li>';
                 } else {
                     echo '<li class="nav-item"><a href="/API_test/login" class="nav-link">Connexion</a></li>';
+                    echo '<li class="nav-item"><a href="/API_test/about" class="nav-link">À propos</a></li>';
                 }
                 ?>
-                <li class="nav-item"><a href="/API_test/about" class="nav-link">À propos</a></li>
             </ul>
         </div>
     </nav>

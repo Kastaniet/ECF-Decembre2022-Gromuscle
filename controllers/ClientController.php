@@ -16,11 +16,7 @@ class ClientController extends WebController
 
     function liste($page = 0): string
     {
-        $recherche = $this->clientModele->recherche();
-        $clients = $this->clientModele->liste(10, $page);
-        return Template::render( "views/liste/client.php", array("page" => $page, "clients" => $clients, "recherche" => $recherche));
+        $clients = $this->clientModele->liste(25, $page);
+        return Template::render( "views/liste/client.php", array("page" => $page, "clients" => $clients));
     }
-
-
-
 }

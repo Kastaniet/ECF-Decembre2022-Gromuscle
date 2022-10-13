@@ -6,6 +6,7 @@ use controllers\Account;
 use routes\base\Route;
 use controllers\Main;
 use controllers\ClientController;
+use controllers\FicheController;
 use utils\SessionHelpers;
 
 class Web
@@ -16,6 +17,7 @@ class Web
         $main = new Main();
         $account = new Account();
         $clientControleur = new ClientController();
+        $ficheControleur = new FicheController();
         
         Route::Add('/', [$main, 'home']);
         Route::Add('/about', [$main, 'about']);
@@ -26,6 +28,7 @@ class Web
             Route::Add('/page/{id}', [$account, 'page']);
             Route::Add('/logout', [$account, 'logout']);
             Route::Add('/client', [$clientControleur, 'liste']);
+            Route::Add('/client/{id}', [$ficheControleur, 'fiche']);
 
         }
     }

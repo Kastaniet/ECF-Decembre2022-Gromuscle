@@ -27,7 +27,7 @@ class Account extends WebController
                 $_SESSION['user'] = $user;
                 $_SESSION['id'] = $user['id'];
                 $id = $user['id'];
-                $this->redirect("liste/$id");
+                $this->redirect("page/$id");
             }
         }
 
