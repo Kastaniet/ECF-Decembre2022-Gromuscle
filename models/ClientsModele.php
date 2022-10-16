@@ -59,23 +59,28 @@ class ClientsModele extends SQL
      */
     public function creerClient(Client $unClient): bool|string
     {
-        $query = "INSERT INTO client (id, nom, prenom, email, telephone) VALUES (null, ?, ?, ?, ?)";
+        $query = "INSERT INTO client (id, nom, prenom, email, telephone, active) VALUES (null, ?, ?, ?, ?, 0)";
         $stmt = SQL::getPdo()->prepare($query);
         $stmt->execute([$unClient->getNom(), $unClient->getPrenom(), $unClient->getEmail(), $unClient->getTelephone()]);
-
         return $this->getPdo()->lastInsertId();
     }
 
-    public function getByClientId($clientId): Client {
-        $query = "SELECT * FROM client WHERE id = '" . $clientId . "'";
+    public function getByClientId($clientId) {
+        $query = "SELECT * FROM client WHERE id = ?";
         $stmt = SQL::getPdo()->prepare($query);
-        $stmt->execute([]);
-        return $stmt->fetch(\PDO::FETCH_CLASS, Client::class);
+        $stmt->execute([$clientId]);
+        return $stmt->fetchObject(Client::class);
     }
 
-    function autorized($id)
+    function activated($id)
     {
-        $stmt = $this->getPdo()->prepare("UPDATE client SET autorized = 1 WHERE id = ?");
+        $stmt = $this->getPdo()->prepare("UPDATE `client` SET active = 1 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function desactivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `client` SET active = 0 WHERE id = ?");
         $stmt->execute([$id]);
     }
 }

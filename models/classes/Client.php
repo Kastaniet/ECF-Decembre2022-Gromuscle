@@ -7,10 +7,10 @@ use models\ProduitsModele;
 class Client
 {
     private string $id;
-    private string $nom;
-    private string $prenom;
-    private string $email;
-    private string $telephone;
+    private string $nom = "";
+    private string $prenom = "";
+    private string $email = "";
+    private string $telephone = "";
     private ProduitsModele $produitModele;
     private AdresseModel $adresseModele;
 
@@ -135,4 +135,19 @@ class Client
         $this->telephone = $telephone;
     }
 
+    /**
+     * @return string
+     */
+    public function getActive(): string
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param string $active
+     */
+    public function setActive(string $active): void
+    {
+        $this->active = $active;
+    }
 }

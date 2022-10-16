@@ -28,8 +28,10 @@ class Web
             Route::Add('/page/{id}', [$account, 'page']);
             Route::Add('/logout', [$account, 'logout']);
             Route::Add('/client', [$clientControleur, 'liste']);
+            Route::Add('/client/active', [$clientControleur, 'active']);
+            Route::Add('/client/desactive', [$clientControleur, 'desactive']);
+            Route::Add('/formulaire/client', [$clientControleur, 'formClient']);
             Route::Add('/client/{id}', [$ficheControleur, 'fiche']);
-
         }
     }
 }

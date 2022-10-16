@@ -13,7 +13,7 @@
                 <table class="card table tableplus table-hover text-center mt-3 order-table col-10" id="myTable">
                     <thead>
                         <tr class="row col-12">
-                            <th class="text-end m-2">Ajouter</th>
+                            <th class="text-end m-2"><a href="/API_test/formulaire/client" class="btn btn-connexion text-light">+ Ajout de Client</a></th>
                         </tr>
                     </thead>
                     <tbody class="m-2 p-2" id="card-body">
@@ -27,8 +27,8 @@
                                     </td>
                                 </div>
                                 <div class="col-md-8 text-nowrap">
-                                    <td class="card-text col-1"><?= $c->getId(); ?></td>
-                                    <td class="card-text col-2"><?= $c->getNom() . ' ' . $c->getPrenom(); ?></td>
+                                    <td class="card-header col-1" id="idClient"><?= $c->getId(); ?></td>
+                                    <td class="card-text col-2"><a href="/API_test/client/<?= $c->getId(); ?>"><?= $c->getNom() . ' ' . $c->getPrenom(); ?></a></td>
                                     <td class="card-text col-2"><?= $c->getEmail() ?></td>
                                     <?php $adresses = $c->lesAdresses();
                                     if (sizeof($adresses) > 0) {
@@ -36,7 +36,21 @@
                                             <td class="card-text col-4"><?= $a->toString() ?></td>
                                         <?php }
                                     } else { ?> <td>Pas d'adresse connue</td> <?php } ?>
-                                    <td class="card-text col-1"><a href="/API_test/client/<?= $c->getId(); ?>">></a></td>
+                                    <td>
+                                        <div class="card-text col-md-4">
+                                            <label class="switch">
+                                                <?php $id = $c->getId();
+                                                if ($c->getActive() == 1) {
+                                                    echo "<a href='./client/desactive?id={$id}' ><input type='checkbox' name='switch' id='myCheck' checked>";
+                                                } else {
+                                                    echo "<a href='./client/active?id={$id}' ><input type='checkbox' name='switch' id='myCheck'>";
+                                                }
+                                                ?>
+                                                <span class='slider round'></span>
+                                            </label>
+                                            </a>
+                                        </div>
+                                    </td>
                                 </div>
                             </tr>
                         <?php } ?>
@@ -46,23 +60,25 @@
         </div>
     </div>
     <div class="row col-12 justify-content-center pt-4">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <div class="col-10">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#"><?= $page + 1 ?></a></li>
+                    <li class="page-item"><a class="page-link" href="#"><?= $page + 2 ?></a></li>
+                    <li class="page-item"><a class="page-link" href="#"><?= $page + 3 ?></a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </div>
 
@@ -83,6 +99,7 @@
                     });
                 });
             }
+
             function filter(row) {
                 var text = row.textContent.toLowerCase();
                 var val = input.value.toLowerCase();

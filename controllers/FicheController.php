@@ -2,7 +2,6 @@
 namespace controllers;
 
 use controllers\base\WebController;
-use models\classes\Client;
 use utils\Template;
 use models\ClientsModele;
 
@@ -18,7 +17,8 @@ class FicheController extends WebController
     public function fiche($id="")
     {
         $clientModele = new ClientsModele();
+        $leClient = $clientModele->getByClientId($id);
         $_GET['id'] = $id;
-        return Template::render("views/liste/ficheClient.php", ["leClient" => $clientModele]);
+        return Template::render("views/liste/ficheClient.php", ["leClient" => $leClient]);
     }
 }
