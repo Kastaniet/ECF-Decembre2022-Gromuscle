@@ -28,7 +28,7 @@
                                 </div>
                                 <div class="col-md-8 text-nowrap">
                                     <td class="card-header col-1" id="idClient"><?= $c->getId(); ?></td>
-                                    <td class="card-text col-2"><a href="/API_test/client/<?= $c->getId(); ?>"><?= $c->getNom() . ' ' . $c->getPrenom(); ?></a></td>
+                                    <td class="card-text col-2"><a href="/API_test/ficheClient/<?= $c->getId(); ?>" <?php if ($c->getActive() == 0) { echo 'class="disabled"' ;} ?>><?= $c->getNom() . ' ' . $c->getPrenom(); ?></a></td>
                                     <td class="card-text col-2"><?= $c->getEmail() ?></td>
                                     <?php $adresses = $c->lesAdresses();
                                     if (sizeof($adresses) > 0) {

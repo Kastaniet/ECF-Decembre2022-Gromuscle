@@ -43,13 +43,5 @@ class ClientController extends WebController
     {
         $unClient = new ClientsModele;
         return Template::render("views/formulaire/clientForm.php", array("unClient" => $unClient));
-        if (isset($_POST)) {
-            $leClient = new Client;
-            $leClient->getNom($_POST['fname']);
-            $leClient->getPrenom($_POST['lname']);
-            $leClient->getEmail($_POST['email']);
-            $leClient->getTelephone($_POST['telephone']);
-            $this->redirect("/API_test/client");
-        }
     }
 }
