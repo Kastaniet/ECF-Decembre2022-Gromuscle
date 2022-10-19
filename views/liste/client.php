@@ -8,56 +8,43 @@
     </div>
 
     <div class="row col-12 justify-content-center pt-4">
-        <div class="d-flex col-10">
-            <div class="col-12 rounded">
-                <table class="card table tableplus table-hover text-center mt-3 order-table col-10" id="myTable">
-                    <thead>
-                        <tr class="row col-12">
-                            <th class="text-end m-2"><a href="/API_test/formulaire/client" class="btn btn-connexion text-light">+ Ajout de Client</a></th>
-                        </tr>
-                    </thead>
-                    <tbody class="m-2 p-2" id="card-body">
-                        <?php
-                        /** @var Client[] $clients */
-                        foreach ($clients as $c) { ?>
-                            <tr class="card row-flex g-0 col-12">
-                                <div class="col-md-4">
-                                    <td class="card col-2 m-2">
-                                        <img src="public/img/salle-de-sport.jpeg" class=" rounded-start" alt="..." style="width: 18rem;">
-                                    </td>
-                                </div>
-                                <div class="col-md-8 text-nowrap">
-                                    <td class="card-header col-1" id="idClient"><?= $c->getId(); ?></td>
-                                    <td class="card-text col-2"><a href="/API_test/ficheClient/<?= $c->getId(); ?>" <?php if ($c->getActive() == 0) { echo 'class="disabled"' ;} ?>><?= $c->getNom() . ' ' . $c->getPrenom(); ?></a></td>
-                                    <td class="card-text col-2"><?= $c->getEmail() ?></td>
-                                    <?php $adresses = $c->lesAdresses();
-                                    if (sizeof($adresses) > 0) {
-                                        foreach ($adresses as $a) { ?>
-                                            <td class="card-text col-4"><?= $a->toString() ?></td>
-                                        <?php }
-                                    } else { ?> <td>Pas d'adresse connue</td> <?php } ?>
-                                    <td>
-                                        <div class="card-text col-md-4">
-                                            <label class="switch">
-                                                <?php $id = $c->getId();
-                                                if ($c->getActive() == 1) {
-                                                    echo "<a href='./client/desactive?id={$id}' ><input type='checkbox' name='switch' id='myCheck' checked>";
-                                                } else {
-                                                    echo "<a href='./client/active?id={$id}' ><input type='checkbox' name='switch' id='myCheck'>";
-                                                }
-                                                ?>
-                                                <span class='slider round'></span>
-                                            </label>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </div>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+        <?php /** @var Client[] $clients */
+        foreach ($clients as $c) { ?>
+            <div class="card mb-3 card-result" style="max-width: 540px;">
+                <div class="row g-0 card-item">
+                    <div class="col-md-4">
+                        <img src="public/img/salle-de-sport.jpeg" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-header"><a href="/API_test/ficheClient/<?= $c->getId(); ?>" <?= ($c->getActive() == 0) ? 'class="disabled"' : ' ' ?>><?= $c->getNom() . ' ' . $c->getPrenom(); ?></a></div>
+                        <div class="card-body">
+                            <h5 class="card-title" id="idClient"><?= $c->getId(); ?></h5>
+                            <p class="card-text"><?= $c->getEmail() ?></p>
+                            <?php $adresses = $c->lesAdresses();
+                            if (sizeof($adresses) > 0) {
+                                foreach ($adresses as $a) { ?>
+                                    <p class="card-text"><?= $a->toString() ?></p>
+                                <?php }
+                            } else { ?> <div>Pas d'adresse connue</div> <?php } ?>
+                            <p class="card-text"></p>
+                            <p class="card-footer">
+                                <label class="switch">
+                                    <?php $id = $c->getId();
+                                    if ($c->getActive() == 1) {
+                                        echo "<a href='./client/desactive?id={$id}' ><input type='checkbox' name='switch' id='myCheck' checked>";
+                                    } else {
+                                        echo "<a href='./client/active?id={$id}' ><input type='checkbox' name='switch' id='myCheck'>";
+                                    }
+                                    ?>
+                                    <span class='slider round'></span>
+                                    </a>
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        <?php } ?>
     </div>
     <div class="row col-12 justify-content-center pt-4">
         <div class="col-10">
@@ -80,41 +67,26 @@
             </nav>
         </div>
     </div>
-</div>
 
-<script type="text/javascript">
-    (function() {
-        'use strict';
+    <script type="text/javascript">
+        const searchBar = document.querySelector('#client-selector');
 
-        var TableFilter = (function() {
-            var Arr = Array.prototype;
-            var input;
+        searchBar.addEventListener("keyup", (e) => {
+            const searchedLetters = e.target.value;
+            const cards = document.querySelectorAll('.card');
+            filterElements(searchedLetters, cards);
+        });
 
-            function onInputEvent(e) {
-                input = e.target;
-                var table1 = document.getElementsByClassName(input.getAttribute('data-table'));
-                Arr.forEach.call(table1, function(table) {
-                    Arr.forEach.call(table.tBodies, function(tbody) {
-                        Arr.forEach.call(tbody.rows, filter);
-                    });
-                });
-            }
-
-            function filter(row) {
-                var text = row.textContent.toLowerCase();
-                var val = input.value.toLowerCase();
-                row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
-            }
-
-            return {
-                init: function() {
-                    var inputs = document.getElementsByClassName('table-filter');
-                    Arr.forEach.call(inputs, function(input) {
-                        input.oninput = onInputEvent;
-                    });
+        function filterElements(letters, elements) {
+            if (letters.length > 1) {
+                for (let i = 0; i < elements.length; i++) {
+                    console.log(elements[i].textContent.toLowerCase().includes(letters));
+                    if (elements[i].textContent.toLowerCase().includes(letters)) {
+                        elements[i].style.display = 'block';
+                    } else {
+                        elements[i].style.display = 'none';
+                    }
                 }
-            };
-        })();
-        TableFilter.init();
-    })();
-</script>
+            }
+        }
+    </script>

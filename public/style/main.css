@@ -84,8 +84,6 @@ form input:focus {
     border: none;
 }
 
-
-
 .table tbody tr {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
@@ -98,8 +96,6 @@ form input:focus {
     background: #fff;
 }
 
-
-
 .table tbody tr td:nth-child(1) {
     border-radius: 5px 0 0 5px;
 }
@@ -107,16 +103,26 @@ form input:focus {
 .table tbody tr td:nth-last-child(1) {
     border-radius: 0 5px 5px 0;
 }
+
 /* Card */
 
-#card-body {
+.card {
+    margin: 2px;
+}
+.card-body {
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-.card img {
-    width: 30%;
+.card-header, .card-footer {
+    background-color: white;
+    border: none;
 }
+
+.card img {
+    width: 100%;
+    margin-top: 10px;
+    margin-right: 5px;}
 
 @media only screen and (max-width: 768px) {
     a {
