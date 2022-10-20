@@ -1,9 +1,12 @@
 <div class="container-fluid">
-    <div class="row col-12 justify-content-center pt-4">
-        <div class="d-flex col-10">
+    <div class="row col-12 justify-content-center pt-4 mt-2">
+        <div class="d-flex col-7">
             <form class="form-inline d-flex col-5 m-2 mx-4">
                 <input class="form-control mr-sm-2 table-filter" type="search" placeholder="Chercher une structure..." data-table="order-table" aria-label="Search" id="client-selector">
             </form>
+        </div>
+        <div class="d-flex col-3 justify-content-end p-1">
+            <a href="/API_test/formulaire/client" class="text-light btn btn-connexion">+ ajouter un client</a>
         </div>
     </div>
 
@@ -88,5 +91,8 @@
                     }
                 }
             }
+            if (letters === ' ') {
+                elements.style.display = 'block';
+            };
         }
     </script>

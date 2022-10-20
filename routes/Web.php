@@ -32,6 +32,7 @@ class Web
             Route::Add('/client/active', [$clientControleur, 'active']);
             Route::Add('/client/desactive', [$clientControleur, 'desactive']);
             Route::Add('/formulaire/client', [$clientControleur, 'formClient']);
+            Route::Add('/formulaire/adresse/{id}', [$ficheControleur, 'formAdresse']);
         }
     }
 }

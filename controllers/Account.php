@@ -24,6 +24,7 @@ class Account extends WebController
             if ($this->account->login($_POST["email"], $_POST["password"])) {
 
                 $user = $this->account->getUsersId($_POST["email"]);
+                
                 $_SESSION['user'] = $user;
                 $_SESSION['id'] = $user['id'];
                 $id = $user['id'];

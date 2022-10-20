@@ -42,6 +42,9 @@ class ClientController extends WebController
     function formClient()
     {
         $unClient = new ClientsModele;
-        return Template::render("views/formulaire/clientForm.php", array("unClient" => $unClient));
+        $leClient = new Client;
+        return Template::render("views/formulaire/clientForm.php", array("unClient" => $unClient, "leClient" => $leClient));
+
     }
+				
 }

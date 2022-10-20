@@ -2,21 +2,28 @@
     <div class="row col-12 justify-content-center pt-4">
         <div class="d-flex col-10 justify-content-center">
             <div class="card mb-3">
-                <div class="row g-0 ">
+                <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="/public/img/salle-de-sport.jpeg" class="img-fluid rounded-start" alt="...">
+                        <img src="public/img/salle-de-sport2.jpeg" class="img-fluid rounded-start">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title"><?= $leClient->getNom() . ' ' . $leClient->getPrenom(); ?></h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text col-md-4">
-                                <?php
-                                if ($leClient->getActive() == 1) {
-                                    echo "<button id='togg1'>afficher installation</button>";
-                                }
-                                ?>
-                            </p>
+                            <p class="card-text">
+                                <?php $adresses = $leClient->lesAdresses();
+                                if (sizeof($adresses) > 0) {
+                                    foreach ($adresses as $a) { ?>
+                            <p class="card-text"><?= $a->toString() ?></p>
+                        <?php }
+                                } else { ?> <div>Pas d'adresse connue</div> <?php } ?></p>
+                    <p class="row col-12">
+                        <?php
+                        if ($leClient->getActive() == 1) {
+                            echo "<button id='togg1' class='col-5'>afficher installation</button>";
+                        }
+                        ?>
+                        <a href="/API_test/formulaire/adresse/<?= $leClient->getId() ?>" class="text-light btn btn-connexion col-5">+ Ajouter une adresse</a>
+                    </p>
                         </div>
                     </div>
                 </div>

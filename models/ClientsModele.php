@@ -5,7 +5,6 @@ namespace models;
 use models\base\SQL;
 use models\classes\Client;
 
-
 class ClientsModele extends SQL
 {
     public function __construct()
@@ -83,4 +82,5 @@ class ClientsModele extends SQL
         $stmt = $this->getPdo()->prepare("UPDATE `client` SET active = 0 WHERE id = ?");
         $stmt->execute([$id]);
     }
+
 }
