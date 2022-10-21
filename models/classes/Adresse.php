@@ -7,7 +7,6 @@ use models\ClientsModele;
 class Adresse
 {
     private string $id;
-    private string $nom;
     private string $rue;
     private string $codePostal;
     private string $ville;
@@ -26,7 +25,7 @@ class Adresse
 
     public function toString(): string
     {
-        return "$this->nom, $this->rue, $this->codePostal, $this->ville";
+        return "$this->rue, $this->codePostal, $this->ville";
     }
 
     /**
@@ -43,22 +42,6 @@ class Adresse
     public function setId(string $id): void
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNom(): string
-    {
-        return $this->nom;
-    }
-
-    /**
-     * @param string $nom
-     */
-    public function setNom(string $nom): void
-    {
-        $this->nom = $nom;
     }
 
     /**

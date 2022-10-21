@@ -54,8 +54,8 @@ class Account extends WebController
             $password = mysqli_real_escape_string($conn, $password);
             if (good_email_service($email) && mdpCorrecte($password)) {
                 //requéte SQL + mot de passe crypté
-                $query = "INSERT into `users` (firstname, lastname, email, password)
-              VALUES ('$firstname','$lastname', '$email', '" . hash('sha256', $password) . "')";
+                $query = "INSERT into `users` (firstname, lastname, email, password, roles)
+              VALUES ('$firstname','$lastname', '$email', '" . hash('sha256', $password) . "', 'user')";
                 // Exécute la requête sur la base de données
                 $res = mysqli_query($conn, $query);
                 if ($res) {

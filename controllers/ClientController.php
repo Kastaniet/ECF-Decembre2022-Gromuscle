@@ -5,6 +5,7 @@ use controllers\base\WebController;
 use utils\Template;
 use models\ClientsModele;
 use models\classes\Client;
+use models\EmailModele;
 use routes\Cli;
 
 class ClientController extends WebController
@@ -42,8 +43,9 @@ class ClientController extends WebController
     function formClient()
     {
         $unClient = new ClientsModele;
+        $email = new EmailModele;
         $leClient = new Client;
-        return Template::render("views/formulaire/clientForm.php", array("unClient" => $unClient, "leClient" => $leClient));
+        return Template::render("views/formulaire/clientForm.php", array("unClient" => $unClient, "leClient" => $leClient, "email" => $email));
 
     }
 				

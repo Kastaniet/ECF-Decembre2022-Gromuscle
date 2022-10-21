@@ -1,37 +1,34 @@
 <div class="container-fluid">
     <div class="row col-12 justify-content-center pt-4">
         <div class="d-flex col-10 justify-content-center">
-
-            <form action="" method="POST">
-                <label for="fname">First name:</label><br>
-                <input type="text" id="fname" name="fname" value=""><br>
-                <label for="lname">Last name:</label><br>
-                <input type="text" id="lname" name="lname" value=""><br><br>
-                <label for="email">email:</label><br>
-                <input type="email" id="email" name="email" value=""><br><br>
-                <label for="telephone">Telephone:</label><br>
-                <input type="text" id="telephone" name="telephone" value=""><br><br>
+            <form action="" method="post">
+                <label for="adresse">Adresse :</label><br>
+                <input type="text" id="adresse" name="adresse" value=""><br>
+                <label for="postal">Code Postal:</label><br>
+                <input type="text" id="postal" name="postal" value=""><br><br>
+                <label for="city">Ville :</label><br>
+                <input type="text" id="city" name="city" value=""><br><br>
                 <input type="submit" value="Submit">
             </form>
-            <?php sdisplay($UneAdresse);
+            <?php 
             if (!empty($_POST)) {
-                $leClient->setNom($_POST['lname']);
-                $leClient->setPrenom($_POST['fname']);
-                $leClient->setEmail($_POST['email']);
-                $leClient->setTelephone($_POST['telephone']);
-
-                $unClient->creerClient($leClient);
+                $adresse->setRue($_POST['adresse']);
+                $adresse->setCodePostal($_POST['postal']);
+                $adresse->setVille($_POST['city']);
+                $adresse->setClientId(substr($_GET['path'], 19, 1));
+                
+                $UneAdresse->creerAdresseClient($adresse);
 
                 $text = 'Ceci est un mail test, pour voir si l\'envoie fonctionne.';
                 $text = str_replace("\n.", "\n..", $text);
-                $dest = $_POST['email'];
+                $dest = $leClient->getEmail();
                 if (mail($dest, 'Nouvelle adresse', $text)) {
                     echo 'email envoyé avec succès';
                 } else {
                     echo 'Echec de l\'envoie de l\'email';
                 }
-
-                header("location:http://localhost/API_test/client/$_GET[id]");
+                $id = $adresse->getClientId();
+                header("location:http://localhost/API_test/ficheClient/$id");
             }
             ?>
         </div>

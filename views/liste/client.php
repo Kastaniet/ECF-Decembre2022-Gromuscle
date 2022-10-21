@@ -19,7 +19,7 @@
                         <img src="public/img/salle-de-sport.jpeg" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-8">
-                        <div class="card-header"><a href="/API_test/ficheClient/<?= $c->getId(); ?>" <?= ($c->getActive() == 0) ? 'class="disabled"' : ' ' ?>><?= $c->getNom() . ' ' . $c->getPrenom(); ?></a></div>
+                        <div class="card-header"><a href="/API_test/ficheClient/<?= $c->getId(); ?>" <?= ($c->getActive() == 0) ? 'class="disabled"' : ' ' ?>><?= $c->getNom()?></a></div>
                         <div class="card-body">
                             <h5 class="card-title" id="idClient"><?= $c->getId(); ?></h5>
                             <p class="card-text"><?= $c->getEmail() ?></p>

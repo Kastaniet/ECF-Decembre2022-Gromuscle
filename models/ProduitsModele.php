@@ -21,7 +21,7 @@ class ProduitsModele extends SQL
      */
     public function lesProduitsClient(string $clientId): array
     {
-        $query = "SELECT produit.* FROM produit INNER JOIN commander ON commander.idProduit = produit.id INNER JOIN client ON client.id = commander.idClient WHERE idClient = ?";
+        $query = "SELECT produit.* FROM produit INNER JOIN installation ON installation.idProduit = produit.id INNER JOIN client ON client.id = installation.idClient WHERE idClient = ?";
         $stmt = SQL::getPdo()->prepare($query);
         $stmt->execute([$clientId]);
         return $stmt->fetchAll(\PDO::FETCH_CLASS, Produit::class);
@@ -33,32 +33,10 @@ class ProduitsModele extends SQL
      * @return Client[]
      */
     public function lesClientProduits(string $produitId): array{
-        $query = "SELECT client.* FROM produit INNER JOIN commander ON commander.idProduit = produit.id INNER JOIN client ON client.id = commander.idClient WHERE idProduit = ?";
+        $query = "SELECT client.* FROM produit INNER JOIN installation ON installation.idProduit = produit.id INNER JOIN client ON client.id = installation.idClient WHERE idProduit = ?";
         $stmt = SQL::getPdo()->prepare($query);
         $stmt->execute([$produitId]);
         return $stmt->fetchAll(\PDO::FETCH_CLASS, Client::class);
-    }
-
-    /**
-     * Ajoute un nouveau produit en base. Si un $clientId est passé en paramètre alors le produit
-     * est associé à ce client.
-     * @param Produit $unProduit
-     * @param int|null $clientId
-     * @return bool|string
-     */
-    public function creerProduit(Produit $unProduit, int $clientId = null): bool|string
-    {
-        $query = "INSERT INTO produit(id, nom, description, prix) VALUE (null, ?, ?, ?)";
-        $stmt = SQL::getPdo()->prepare($query);
-        $stmt->execute([$unProduit->getNom(), $unProduit->getDescription(), $unProduit->getPrix()]);
-
-        $idProduit = $this->getPdo()->lastInsertId();
-
-        if($clientId != null){
-            $this->affecterProduit($idProduit, $clientId);
-        }
-
-        return $idProduit;
     }
 
     /**
@@ -72,4 +50,126 @@ class ProduitsModele extends SQL
         $stmt = SQL::getPdo()->prepare($query);
         $stmt->execute([$idClient, $idProduit]);
     }
+
+    function members_readActivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET members_read = 1 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function members_readDesactivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET members_read = 0 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function members_writeActivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET members_write = 1 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function members_writeDesactivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET members_write = 0 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function members_addActivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET members_add = 1 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function members_addDesactivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET members_add = 0 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function members_product_addActivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET members_product_add = 1 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function members_product_addDesactivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET members_product_add = 0 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function members_payment_schedule_readActivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET members_payment_schedule_read = 1 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function members_payment_schedule_readDesactivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET members_payment_schedule_read = 0 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function members_statistiques_readActivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET members_statistiques_read = 1 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function members_statistiques_readDesactivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET members_statistiques_read = 0 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function members_subscription_readActivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET members_subscription_read = 1 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function members_subscription_readDesactivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET members_subscription_read = 0 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function payment_schedule_readActivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET payment_schedule_read = 1 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function payment_schedule_readDesactivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET payment_schedule_read = 0 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function payment_schedule_writeActivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET payment_schedule_write = 1 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function payment_schedule_writeDesactivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET payment_schedule_write = 0 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function payment_day_readActivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET payment_day_read = 1 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    function payment_day_readDesactivated($id)
+    {
+        $stmt = $this->getPdo()->prepare("UPDATE `produit` SET payment_day_read = 0 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+
 }

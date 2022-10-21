@@ -58,9 +58,9 @@ class ClientsModele extends SQL
      */
     public function creerClient(Client $unClient): bool|string
     {
-        $query = "INSERT INTO client (id, nom, prenom, email, telephone, active) VALUES (null, ?, ?, ?, ?, 0)";
+        $query = "INSERT INTO client (id, nom, email, active) VALUES (null, ?, ?, 1)";
         $stmt = SQL::getPdo()->prepare($query);
-        $stmt->execute([$unClient->getNom(), $unClient->getPrenom(), $unClient->getEmail(), $unClient->getTelephone()]);
+        $stmt->execute([$unClient->getNom(), $unClient->getEmail()]);
         return $this->getPdo()->lastInsertId();
     }
 

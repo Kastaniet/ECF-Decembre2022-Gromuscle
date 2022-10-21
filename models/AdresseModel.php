@@ -32,9 +32,9 @@ class AdresseModel extends SQL
      */
     public function creerAdresseClient(Adresse $uneAdresse): string
     {
-        $query = "INSERT INTO adresse (id, nom, rue, codePostal, ville, clientId) VALUE (NULL, ?, ?, ?, ?, clientId)";
+        $query = "INSERT INTO adresse (id, rue, codePostal, ville, clientId) VALUE (NULL, ?, ?, ?, ?)";
         $stmt = SQL::getPdo()->prepare($query);
-        $stmt->execute([$uneAdresse->getNom(), $uneAdresse->getRue(), $uneAdresse->getCodePostal(), $uneAdresse->getVille(), $uneAdresse->getClientId()]);
+        $stmt->execute([$uneAdresse->getRue(), $uneAdresse->getCodePostal(), $uneAdresse->getVille(), $uneAdresse->getClientId()]);
         return $this->getPdo()->lastInsertId();
     }
 }

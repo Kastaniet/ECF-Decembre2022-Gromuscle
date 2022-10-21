@@ -7,7 +7,7 @@
     <title>Gromuscle</title>
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" href="public/style/main.css">
+    <link rel="stylesheet" type="text/css" href="public/style/main.css">
 </head>
 
 <body class="<?= isset($_SESSION['id']) ? 'brick' : ''  ?>">
@@ -21,11 +21,16 @@
             }
             ?>
             <ul class="nav nav-pills">
-                <?php
+                <?php 
                 if (\utils\SessionHelpers::isLogin()) {
-                    echo '<li class="nav-item"><a href="/API_test/client" class="nav-link">Clients</a></li>';
+                    
                     echo '<li class="nav-item"><a href="/API_test/page/' . $_SESSION['id'] . '" class="nav-link">Mon compte</a></li>';
+                    if ($_SESSION['user']['roles'] == 'Admin' || $_SESSION['user']['roles'] == 'Technicien') {
+                    echo '<li class="nav-item"><a href="/API_test/client" class="nav-link">Clients</a></li>';
+                    echo '<li class="nav-item"><a href="/API_test/email" class="nav-link">E-mail</a></li>';
                     echo '<li class="nav-item"><a href="/API_test/logout" class="nav-link">Déconnexion</a></li>';
+                }
+                    
                 } else {
                     echo '<li class="nav-item"><a href="/API_test/login" class="nav-link">Connexion</a></li>';
                     echo '<li class="nav-item"><a href="/API_test/about" class="nav-link">À propos</a></li>';

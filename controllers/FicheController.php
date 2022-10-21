@@ -21,17 +21,188 @@ class FicheController extends WebController
         $clientModele = new ClientsModele();
         $leClient = $clientModele->getByClientId($id);
         $_GET['id'] = $id;
+
         return Template::render("views/liste/ficheClient.php", ["leClient" => $leClient]);
     }
 
-    public function formAdresse($id = "") {
+    public function formAdresse($clientId) {
 
         $clientModele = new ClientsModele();
-        $leClient = $clientModele->getByClientId($id);
-        $_GET['id'] = $id;
+        $leClient = $clientModele->getByClientId($clientId);
         $uneAdresse = new AdresseModel;
         $adresse = new Adresse;
 
         return Template::render("views/formulaire/AdresseForm.php", array("UneAdresse" => $uneAdresse, "adresse" => $adresse, "leClient" => $leClient));
     }
+
+    function members_readActivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->members_readActivated($id);
+        }
+
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function members_readDesactivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->members_readDesactivated($id);
+        }
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function members_writeActivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->members_writeActivated($id);
+        }
+
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function members_writeDesactivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->members_writeDesactivated($id);
+        }
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function members_addActivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->members_addActivated($id);
+        }
+
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function members_addDesactivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->members_addDesactivated($id);
+        }
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function members_product_addActivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->members_product_addActivated($id);
+        }
+
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function members_product_addDesactivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->members_product_addDesactivated($id);
+        }
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function members_payment_schedule_readActivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->members_payment_schedule_readActivated($id);
+        }
+
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function members_payment_schedule_readDesactivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->members_payment_schedule_readDesactivated($id);
+        }
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function members_statistiques_readActivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->members_statistiques_readActivated($id);
+        }
+
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function members_statistiques_readDesactivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->members_statistiques_readDesactivated($id);
+        }
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function members_subscription_readActivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->members_subscription_readActivated($id);
+        }
+
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function members_subscription_readDesactivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->members_subscription_readDesactivated($id);
+        }
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function payment_schedule_readActivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->payment_schedule_readActivated($id);
+        }
+
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function payment_schedule_readDesactivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->payment_schedule_readDesactivated($id);
+        }
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function payment_schedule_writeActivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->payment_schedule_writeActivated($id);
+        }
+
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function payment_schedule_writeDesactivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->payment_schedule_writeDesactivated($id);
+        }
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function payment_day_readActivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->payment_day_readActivated($id);
+        }
+
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
+    function payment_day_readDesactivated($id = '')
+    {
+        if ($id != "") {
+            $this->produitModele->payment_day_readDesactivated($id);
+        }
+        $this->redirect("API_test/ficheClient/{$id}");
+    }
+
 }
