@@ -15,13 +15,12 @@
                 $adresse->setRue($_POST['adresse']);
                 $adresse->setCodePostal($_POST['postal']);
                 $adresse->setVille($_POST['city']);
-                $adresse->setClientId(substr($_GET['path'], 19, 1));
-                
+                $adresse->setClientId(substr($_GET['path'], 19));
                 $UneAdresse->creerAdresseClient($adresse);
 
                 $text = 'Ceci est un mail test, pour voir si l\'envoie fonctionne.';
                 $text = str_replace("\n.", "\n..", $text);
-                $dest = $email->getContenu();
+                $dest = $email->email()['contenus'];
                 if (mail($dest, 'Nouvelle adresse', $text)) {
                     echo 'email envoyé avec succès';
                 } else {

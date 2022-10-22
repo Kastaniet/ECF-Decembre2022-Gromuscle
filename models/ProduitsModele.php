@@ -54,7 +54,7 @@ class ProduitsModele extends SQL
      * @return void
      */
     public function affecterProduit(int $idProduit, int $idClient){
-        $query = "INSERT INTO installation(idProduit, idClient) VALUE (?, ?)";
+        $query = "INSERT INTO `installation` (`idProduit`, `idClient`) VALUE (?, ?)";
         $stmt = SQL::getPdo()->prepare($query);
         $stmt->execute([$idClient, $idProduit]);
     }

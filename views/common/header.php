@@ -15,7 +15,7 @@
         <div class="container-fluid">
             <?php
             if (isset($_GET['path'])) {
-                echo '<a class="navbar-brand" href="/API_test">← Retour</a>';
+                echo '<a class="navbar-brand" href="/API_test/client">← Retour</a>';
             } else {
                 echo '<a class="navbar-brand" href="/API_test">Gromuscle</a>';
             }
@@ -23,14 +23,13 @@
             <ul class="nav nav-pills">
                 <?php 
                 if (\utils\SessionHelpers::isLogin()) {
-                    
-                    echo '<li class="nav-item"><a href="/API_test/page/' . $_SESSION['id'] . '" class="nav-link">Mon compte</a></li>';
                     if ($_SESSION['user']['roles'] == 'admin' || $_SESSION['user']['roles'] == 'technicien') {
+                        echo '<li class="nav-item"><a href="/API_test/email" class="nav-link">E-mail</a></li>';
+                    }
+                    echo '<li class="nav-item"><a href="/API_test/page/' . $_SESSION['id'] . '" class="nav-link">Mon compte</a></li>';
                     echo '<li class="nav-item"><a href="/API_test/client" class="nav-link">Clients</a></li>';
-                    echo '<li class="nav-item"><a href="/API_test/email" class="nav-link">E-mail</a></li>';
                     echo '<li class="nav-item"><a href="/API_test/logout" class="nav-link">Déconnexion</a></li>';
-                }
-                    
+                  
                 } else {
                     echo '<li class="nav-item"><a href="/API_test/login" class="nav-link">Connexion</a></li>';
                     echo '<li class="nav-item"><a href="/API_test/about" class="nav-link">À propos</a></li>';

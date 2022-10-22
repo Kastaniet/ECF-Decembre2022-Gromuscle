@@ -4,6 +4,7 @@ namespace controllers;
 use controllers\base\WebController;
 use models\AdresseModel;
 use models\EmailModele;
+use models\ProduitsModele;
 use utils\Template;
 use models\classes\Adresse;
 use models\ClientsModele;
@@ -20,10 +21,11 @@ class FicheController extends WebController
     public function fiche($id="")
     {
         $clientModele = new ClientsModele();
+        $produitModele = new ProduitsModele();
         $leClient = $clientModele->getByClientId($id);
         $_GET['id'] = $id;
 
-        return Template::render("views/liste/ficheClient.php", ["leClient" => $leClient]);
+        return Template::render("views/liste/ficheClient.php", ["leClient" => $leClient, "produitModele" => $produitModele]);
     }
 
     public function formAdresse($clientId) {

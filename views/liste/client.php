@@ -13,7 +13,7 @@
     <div class="row col-12 justify-content-center pt-4">
         <?php /** @var Client[] $clients */
         foreach ($clients as $c) { ?>
-            <div class="card mb-3 card-result" style="max-width: 540px;">
+            <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0 card-item">
                     <div class="col-md-4">
                         <img src="public/img/salle-de-sport.jpeg" class="img-fluid rounded-start" alt="...">
@@ -33,6 +33,7 @@
                             <p class="card-footer">
                                 <label class="switch">
                                     <?php $id = $c->getId();
+                                    if ($_SESSION['user']['roles'] == 'admin' || $_SESSION['user']['roles'] == 'technicien') {
                                     if ($c->getActive() == 1) {
                                         echo "<a href='./client/desactive?id={$id}' class='click-off' ><input type='checkbox' name='switch' id='myCheck' checked>";
                                     } else {
@@ -42,6 +43,7 @@
                                     <span class='slider round'></span>
                                     </a>
                                 </label>
+                                <?php } ?>
                             </p>
                         </div>
                     </div>

@@ -16,7 +16,10 @@
                                     foreach ($adresses as $a) { ?>
                             <p class="card-text"><?= $a->toString() ?></p>
                         <?php }
-                                } else { ?> <div>Pas d'adresse connue</div> <?php } ?></p>
+                                } else { ?> <div>Pas d'adresse connue</div> <?php } ?>
+                    </p>
+                    <p class="card-text"><?= $leClient->getFull_description() ?>
+                    </p>
                     <p class="row col-12">
                         <?php
                         if ($leClient->getActive() == 1) {
@@ -34,6 +37,12 @@
     <div class="row col-12 justify-content-center pt-4" id="d1" style="display: none;">
         <div class="d-flex flex-column col-10 m-2 ">
             <?php
+            $produitList = $leClient->lesProduits();
+            $produitId = $produitModele->getProduitByClientId($leClient->getId());
+            $clientId_int = (int) $leClient->getId();
+            if (empty($produitList)) {
+                $produitModele->affecterProduit($produitId['id'], $clientId_int);
+            }
             foreach ($leClient->lesProduits() as $produit) {
                 $adresses = $leClient->lesAdresses();
                 if (sizeof($adresses) > 0) {
@@ -45,11 +54,13 @@
                                     <div class="d-flex flex-column col-5">
                                         <p>
                                             <label class="switch border p-1">Members_read</label>
-                                            <?php $id = $produit->getId();
-                                            if ($produit->getmembers_read() == 1) {
-                                                echo "<a href='./ficheClient/members_readDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
-                                            } else {
-                                                echo "<a href='./ficheClient/members_readActivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck'>";
+                                            <?php if ($_SESSION['user']['roles'] == 'admin' || $_SESSION['user']['roles'] == 'technicien') {
+                                                $id = $produit->getId();
+                                                if ($produit->getmembers_read() == 1) {
+                                                    echo "<a href='./ficheClient/members_readDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
+                                                } else {
+                                                    echo "<a href='./ficheClient/members_readActivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck'>";
+                                                }
                                             }
                                             ?>
                                             <span class='slider round'></span>
@@ -58,10 +69,12 @@
                                         <p class="">
                                             <label class="switch border p-1">Members_write</label>
                                             <?php $id = $produit->getId();
-                                            if ($produit->getmembers_read() == 1) {
-                                                echo "<a href='./ficheClient/members_writeDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
-                                            } else {
-                                                echo "<a href='./ficheClient/members_writeActivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck'>";
+                                            if ($_SESSION['user']['roles'] == 'admin' || $_SESSION['user']['roles'] == 'technicien') {
+                                                if ($produit->getmembers_read() == 1) {
+                                                    echo "<a href='./ficheClient/members_writeDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
+                                                } else {
+                                                    echo "<a href='./ficheClient/members_writeActivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck'>";
+                                                }
                                             }
                                             ?>
                                             <span class='slider round'></span>
@@ -70,10 +83,12 @@
                                         <p>
                                             <label class="switch border p-1">Members_add</label>
                                             <?php $id = $produit->getId();
-                                            if ($produit->getmembers_read() == 1) {
-                                                echo "<a href='./ficheClient/members_addDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
-                                            } else {
-                                                echo "<a href='./ficheClient/members_addActivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck'>";
+                                            if ($_SESSION['user']['roles'] == 'admin' || $_SESSION['user']['roles'] == 'technicien') {
+                                                if ($produit->getmembers_read() == 1) {
+                                                    echo "<a href='./ficheClient/members_addDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
+                                                } else {
+                                                    echo "<a href='./ficheClient/members_addActivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck'>";
+                                                }
                                             }
                                             ?>
                                             <span class='slider round'></span>
@@ -82,10 +97,12 @@
                                         <p>
                                             <label class="switch border p-1">Members_product_add</label>
                                             <?php $id = $produit->getId();
-                                            if ($produit->getmembers_read() == 1) {
-                                                echo "<a href='./ficheClient/members_product_addDesactivated?id={$id}' class='click-off' ><input type='checkbox' name='switch' id='myCheck' checked>";
-                                            } else {
-                                                echo "<a href='./ficheClient/members_product_addActivated?id={$id}' class='click-off' ><input type='checkbox' name='switch' id='myCheck'>";
+                                            if ($_SESSION['user']['roles'] == 'admin' || $_SESSION['user']['roles'] == 'technicien') {
+                                                if ($produit->getmembers_read() == 1) {
+                                                    echo "<a href='./ficheClient/members_product_addDesactivated?id={$id}' class='click-off' ><input type='checkbox' name='switch' id='myCheck' checked>";
+                                                } else {
+                                                    echo "<a href='./ficheClient/members_product_addActivated?id={$id}' class='click-off' ><input type='checkbox' name='switch' id='myCheck'>";
+                                                }
                                             }
                                             ?>
                                             <span class='slider round'></span>
@@ -94,10 +111,12 @@
                                         <p>
                                             <label class="switch border p-1">Members_payment_schedule_read</label>
                                             <?php $id = $produit->getId();
-                                            if ($produit->getmembers_read() == 1) {
-                                                echo "<a href='./ficheClient/members_payment_schedule_readDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
-                                            } else {
-                                                echo "<a href='./ficheClient/members_payment_schedule_readActivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck'>";
+                                            if ($_SESSION['user']['roles'] == 'admin' || $_SESSION['user']['roles'] == 'technicien') {
+                                                if ($produit->getmembers_read() == 1) {
+                                                    echo "<a href='./ficheClient/members_payment_schedule_readDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
+                                                } else {
+                                                    echo "<a href='./ficheClient/members_payment_schedule_readActivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck'>";
+                                                }
                                             }
                                             ?>
                                             <span class='slider round'></span>
@@ -108,10 +127,12 @@
                                         <p>
                                             <label class="switch border p-1">Members_statistiques_read</label>
                                             <?php $id = $produit->getId();
-                                            if ($produit->getmembers_read() == 1) {
-                                                echo "<a href='./ficheClient/members_statistiques_readDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
-                                            } else {
-                                                echo "<a href='./ficheClient/members_statistiques_readActivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck'>";
+                                            if ($_SESSION['user']['roles'] == 'admin' || $_SESSION['user']['roles'] == 'technicien') {
+                                                if ($produit->getmembers_read() == 1) {
+                                                    echo "<a href='./ficheClient/members_statistiques_readDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
+                                                } else {
+                                                    echo "<a href='./ficheClient/members_statistiques_readActivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck'>";
+                                                }
                                             }
                                             ?>
                                             <span class='slider round'></span>
@@ -120,10 +141,12 @@
                                         <p>
                                             <label class="switch border p-1">Members_subscription_read</label>
                                             <?php $id = $produit->getId();
-                                            if ($produit->getmembers_read() == 1) {
-                                                echo "<a href='./ficheClient/members_subscription_readDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
-                                            } else {
-                                                echo "<a href='./ficheClient/members_subscription_readActivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck'>";
+                                            if ($_SESSION['user']['roles'] == 'admin' || $_SESSION['user']['roles'] == 'technicien') {
+                                                if ($produit->getmembers_read() == 1) {
+                                                    echo "<a href='./ficheClient/members_subscription_readDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
+                                                } else {
+                                                    echo "<a href='./ficheClient/members_subscription_readActivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck'>";
+                                                }
                                             }
                                             ?>
                                             <span class='slider round'></span>
@@ -132,10 +155,12 @@
                                         <p>
                                             <label class="switch border p-1">Payment_schedule_read</label>
                                             <?php $id = $produit->getId();
-                                            if ($produit->getmembers_read() == 1) {
-                                                echo "<a href='./ficheClient/payment_schedule_readDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
-                                            } else {
-                                                echo "<a href='./ficheClient/payment_schedule_readActivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck'>";
+                                            if ($_SESSION['user']['roles'] == 'admin' || $_SESSION['user']['roles'] == 'technicien') {
+                                                if ($produit->getmembers_read() == 1) {
+                                                    echo "<a href='./ficheClient/payment_schedule_readDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
+                                                } else {
+                                                    echo "<a href='./ficheClient/payment_schedule_readActivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck'>";
+                                                }
                                             }
                                             ?>
                                             <span class='slider round'></span>
@@ -144,10 +169,12 @@
                                         <p>
                                             <label class="switch border p-1">Payment_schedule_write</label>
                                             <?php $id = $produit->getId();
-                                            if ($produit->getmembers_read() == 1) {
-                                                echo "<a href='./ficheClient/payment_schedule_writeDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
-                                            } else {
-                                                echo "<a href='./ficheClient/payment_schedule_writeActivated?id={$id}' class='click-off' ><input type='checkbox' name='switch' id='myCheck'>";
+                                            if ($_SESSION['user']['roles'] == 'admin' || $_SESSION['user']['roles'] == 'technicien') {
+                                                if ($produit->getmembers_read() == 1) {
+                                                    echo "<a href='./ficheClient/payment_schedule_writeDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
+                                                } else {
+                                                    echo "<a href='./ficheClient/payment_schedule_writeActivated?id={$id}' class='click-off' ><input type='checkbox' name='switch' id='myCheck'>";
+                                                }
                                             }
                                             ?>
                                             <span class='slider round'></span>
@@ -156,10 +183,12 @@
                                         <p>
                                             <label class="switch border p-1">Payment_day_read</label>
                                             <?php $id = $produit->getId();
-                                            if ($produit->getmembers_read() == 1) {
-                                                echo "<a href='./ficheClient/payment_day_readDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
-                                            } else {
-                                                echo "<a href='./ficheClient/payment_day_readActivated?id={$id}' class='click-off' ><input type='checkbox' name='switch' id='myCheck'>";
+                                            if ($_SESSION['user']['roles'] == 'admin' || $_SESSION['user']['roles'] == 'technicien') {
+                                                if ($produit->getmembers_read() == 1) {
+                                                    echo "<a href='./ficheClient/payment_day_readDesactivated?id={$id}' class='click-off'><input type='checkbox' name='switch' id='myCheck' checked>";
+                                                } else {
+                                                    echo "<a href='./ficheClient/payment_day_readActivated?id={$id}' class='click-off' ><input type='checkbox' name='switch' id='myCheck'>";
+                                                }
                                             }
                                             ?>
                                             <span class='slider round'></span>

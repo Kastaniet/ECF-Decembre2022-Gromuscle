@@ -82,6 +82,9 @@
             if (!empty($_POST)) {
                 $leClient->setNom($_POST['nom']);
                 $leClient->setEmail($_POST['email']);
+                $leClient->setTechnical_contact($_POST['email']);
+                $leClient->setShort_description($_POST['short_description']);
+                $leClient->setActive(0);
                 $unProduit->setMembers_read(0);
                 $unProduit->setMembers_write(0);
                 $unProduit->setMembers_add(0);
@@ -92,11 +95,10 @@
                 $unProduit->setPayment_schedule_read(0);
                 $unProduit->setPayment_schedule_write(0);
                 $unProduit->setPayment_day_read(0);
+
                 if (isset($_POST['active'])){
                     $leClient->setActive(1);
-                }
-                    
-                elseif (isset($_POST['Members_read'])){
+                } elseif (isset($_POST['Members_read'])){
                 $unProduit->setMembers_read(1);
                 } elseif (isset($_POST['Members_write'])) {
                 $unProduit->setMembers_write(1);
@@ -124,7 +126,7 @@
                 $unProduit->setClient_id($idClient);
                 $leProduit->creerProduit($unProduit);
                 $idProduit = $leProduit->getProduitByClientId($idClient);
-                $leProduit->affecterProduit($idProduit['id'], $idClient);
+                
 
                 $sujet = $email->email()[0]->getSujet();
                 $text = $email->email()[0]->getContenu();
@@ -136,6 +138,7 @@
                 } else {
                     echo 'Echec de l\'envoie de l\'email';
                 }
+
                 header("location:http://localhost/API_test/client");
             }
             ?>
