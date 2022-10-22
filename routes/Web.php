@@ -32,7 +32,7 @@ class Web
             Route::Add('/client', [$clientControleur, 'liste']);
             Route::Add('/ficheClient/{id}', [$ficheControleur, 'fiche']);
             Route::Add('/email', [$emailControleur, 'email']);
-            if ($_SESSION['user']['roles'] == 'Tech' || $_SESSION['user']['roles'] == 'Admin') {
+            if ($_SESSION['user']['roles'] == 'technicien' || $_SESSION['user']['roles'] == 'admin') {
                 Route::Add('/client/active', [$clientControleur, 'active']);
                 Route::Add('/client/desactive', [$clientControleur, 'desactive']);
                 Route::Add('/formulaire/client', [$clientControleur, 'formClient']);

@@ -25,7 +25,7 @@
                 if (\utils\SessionHelpers::isLogin()) {
                     
                     echo '<li class="nav-item"><a href="/API_test/page/' . $_SESSION['id'] . '" class="nav-link">Mon compte</a></li>';
-                    if ($_SESSION['user']['roles'] == 'Admin' || $_SESSION['user']['roles'] == 'Technicien') {
+                    if ($_SESSION['user']['roles'] == 'admin' || $_SESSION['user']['roles'] == 'technicien') {
                     echo '<li class="nav-item"><a href="/API_test/client" class="nav-link">Clients</a></li>';
                     echo '<li class="nav-item"><a href="/API_test/email" class="nav-link">E-mail</a></li>';
                     echo '<li class="nav-item"><a href="/API_test/logout" class="nav-link">Déconnexion</a></li>';

@@ -21,7 +21,7 @@
 
                 $text = 'Ceci est un mail test, pour voir si l\'envoie fonctionne.';
                 $text = str_replace("\n.", "\n..", $text);
-                $dest = $leClient->getEmail();
+                $dest = $email->getContenu();
                 if (mail($dest, 'Nouvelle adresse', $text)) {
                     echo 'email envoyé avec succès';
                 } else {

@@ -58,10 +58,18 @@ class ClientsModele extends SQL
      */
     public function creerClient(Client $unClient): bool|string
     {
-        $query = "INSERT INTO client (id, nom, email, active) VALUES (null, ?, ?, 1)";
+        $query = "INSERT INTO client ( nom, email, active) VALUES (?, ?, 1)";
         $stmt = SQL::getPdo()->prepare($query);
         $stmt->execute([$unClient->getNom(), $unClient->getEmail()]);
         return $this->getPdo()->lastInsertId();
+    }
+
+    public function getByClientEmail($email)
+    {
+        $req = "SELECT * FROM client WHERE `email` = '" . $email . "'";
+        $stmt = $this->getPdo()->prepare($req);
+        $stmt->execute([]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function getByClientId($clientId) {

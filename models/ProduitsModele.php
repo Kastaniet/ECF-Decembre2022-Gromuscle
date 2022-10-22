@@ -27,6 +27,14 @@ class ProduitsModele extends SQL
         return $stmt->fetchAll(\PDO::FETCH_CLASS, Produit::class);
     }
 
+    public function getProduitByClientId($clientId)
+    {
+        $req = "SELECT (id) FROM produit WHERE `client_id` = '" . $clientId . "'";
+        $stmt = $this->getPdo()->prepare($req);
+        $stmt->execute([]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
     /**
      * Retourne la liste des clients ayant commandé le produit $produitId
      * @param string $produitId
@@ -46,9 +54,24 @@ class ProduitsModele extends SQL
      * @return void
      */
     public function affecterProduit(int $idProduit, int $idClient){
-        $query = "INSERT INTO commander(idProduit, idClient) VALUE (?, ?)";
+        $query = "INSERT INTO installation(idProduit, idClient) VALUE (?, ?)";
         $stmt = SQL::getPdo()->prepare($query);
         $stmt->execute([$idClient, $idProduit]);
+    }
+
+    /**
+     * Ajoute un nouveau client en base de données
+     * @param Produit $unClient
+     * @return bool|string
+     */
+    public function creerProduit(Produit $unProduit): bool|string
+    {
+        $query = "INSERT INTO produit VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = SQL::getPdo()->prepare($query);
+        $stmt->execute([$unProduit->getclient_id(), $unProduit->getMembers_read(), $unProduit->getMembers_write(), $unProduit->getMembers_add(), $unProduit->getMembers_product_add(),
+            $unProduit->getMembers_payment_schedule_read(), $unProduit->getMembers_statistiques_read(), $unProduit->getMembers_subscription_read(), 
+            $unProduit->getPayment_schedule_read(), $unProduit->getPayment_schedule_write(), $unProduit->getPayment_day_read()]);
+        return $this->getPdo()->lastInsertId();
     }
 
     function members_readActivated($id)

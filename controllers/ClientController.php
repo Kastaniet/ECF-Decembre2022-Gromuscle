@@ -4,7 +4,9 @@ namespace controllers;
 use controllers\base\WebController;
 use utils\Template;
 use models\ClientsModele;
+use models\ProduitsModele;
 use models\classes\Client;
+use models\classes\Produit;
 use models\EmailModele;
 use routes\Cli;
 
@@ -44,8 +46,10 @@ class ClientController extends WebController
     {
         $unClient = new ClientsModele;
         $email = new EmailModele;
+        $unProduit = new Produit;
+        $leProduit = new ProduitsModele;
         $leClient = new Client;
-        return Template::render("views/formulaire/clientForm.php", array("unClient" => $unClient, "leClient" => $leClient, "email" => $email));
+        return Template::render("views/formulaire/clientForm.php", array("unClient" => $unClient, "leClient" => $leClient, "email" => $email, "unProduit" => $unProduit, "leProduit" => $leProduit));
 
     }
 				

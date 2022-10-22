@@ -19,7 +19,7 @@
                         <img src="public/img/salle-de-sport.jpeg" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-8">
-                        <div class="card-header"><a href="/API_test/ficheClient/<?= $c->getId(); ?>" <?= ($c->getActive() == 0) ? 'class="disabled"' : ' ' ?>><?= $c->getNom()?></a></div>
+                        <div class="card-header"><a href="/API_test/ficheClient/<?= $c->getId(); ?>" <?= ($c->getActive() == 0) ? 'class="disabled"' : ' ' ?>><?= $c->getNom() ?></a></div>
                         <div class="card-body">
                             <h5 class="card-title" id="idClient"><?= $c->getId(); ?></h5>
                             <p class="card-text"><?= $c->getEmail() ?></p>
@@ -34,9 +34,9 @@
                                 <label class="switch">
                                     <?php $id = $c->getId();
                                     if ($c->getActive() == 1) {
-                                        echo "<a href='./client/desactive?id={$id}' ><input type='checkbox' name='switch' id='myCheck' checked>";
+                                        echo "<a href='./client/desactive?id={$id}' class='click-off' ><input type='checkbox' name='switch' id='myCheck' checked>";
                                     } else {
-                                        echo "<a href='./client/active?id={$id}' ><input type='checkbox' name='switch' id='myCheck'>";
+                                        echo "<a href='./client/active?id={$id}' class='click-off' ><input type='checkbox' name='switch' id='myCheck'>";
                                     }
                                     ?>
                                     <span class='slider round'></span>
@@ -95,4 +95,14 @@
                 elements.style.display = 'block';
             };
         }
+
+        $('.click-off').click(function() {
+            //escape here if the confirm is false;
+            if (!confirm('Êtes vous sur ?')) return false;
+            var btn = this;
+            setTimeout(function() {
+                $(btn).attr('disabled', 'disabled');
+            }, 1);
+            return true;
+        });
     </script>

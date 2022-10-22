@@ -3,6 +3,7 @@ namespace controllers;
 
 use controllers\base\WebController;
 use models\AdresseModel;
+use models\EmailModele;
 use utils\Template;
 use models\classes\Adresse;
 use models\ClientsModele;
@@ -31,8 +32,8 @@ class FicheController extends WebController
         $leClient = $clientModele->getByClientId($clientId);
         $uneAdresse = new AdresseModel;
         $adresse = new Adresse;
-
-        return Template::render("views/formulaire/AdresseForm.php", array("UneAdresse" => $uneAdresse, "adresse" => $adresse, "leClient" => $leClient));
+        $email = new EmailModele;
+        return Template::render("views/formulaire/AdresseForm.php", array("UneAdresse" => $uneAdresse, "adresse" => $adresse, "leClient" => $leClient, "email" => $email));
     }
 
     function members_readActivated($id = '')
