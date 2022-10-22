@@ -7,7 +7,7 @@ $account = SessionHelpers::getConnected();
 <div class="container mt-5">
     <div class="row">
         <div class="card">
-            <div class="card-body text-center">
+            <div class="card-body text-center"> 
                 <h3 class="text-center pb-5">Bienvenue « <?= $users->firstname . ' ' . $users->lastname ?> »</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo labore libero neque perferendis praesentium quae. Accusamus ad aperiam architecto cumque eligendi enim facilis illo, incidunt nemo quae quia quo voluptate?</p>
             </div>

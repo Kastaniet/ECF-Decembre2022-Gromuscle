@@ -9,17 +9,12 @@ class Email
     private string $id;
     private string $sujet;
     private string $contenu;
-    private EmailModele $email;
 
     public function __construct()
     {
         $this->email = new EmailModele();
     }
 
-    public function toString(): string
-    {
-        return "$this->sujet, $this->contenu";
-    }
 
     /**
      * @return string

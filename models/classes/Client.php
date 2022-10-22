@@ -48,7 +48,7 @@ class Client
      */
     public function generalInfo(): string
     {
-        return join(",", array_filter([$this->id, $this->nom, $this->prenom]));
+        return join(",", array_filter([$this->id, $this->nom]));
     }
 
     /**
@@ -57,7 +57,7 @@ class Client
      */
     public function contactInfo(): string
     {
-        return join(",", array_filter([$this->email, $this->telephone]));
+        return join(",", array_filter([$this->email]));
     }
 
     /**
