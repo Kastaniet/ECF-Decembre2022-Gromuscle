@@ -1,6 +1,7 @@
 ﻿ECF-202212-OB-Express-React
 Présentation de l'examen
-Activité – Type 1 : Développer la partie front-end d’une application web ou web mobile en intégrant les recommandations de sécurité
+Activité – 
+Type 1 : Développer la partie front-end d’une application web ou web mobile en intégrant les recommandations de sécurité
 • Maquetter une application.
 • Réaliser une interface utilisateur web statique et adaptable.
 • Développer une interface utilisateur web dynamique.
@@ -24,9 +25,6 @@ Les annexes:
 Vous retrouverez dans les annexes les éléments suivants qui vous serviront d’exemples. Vous pouvez vous en servir ou bien les adapter à vos propres compétences de développeur :
 • Analyses des besoins
 • Quelques diagrammes UML
-• Un début de charte graphique
-• Un wireframe
-• FAQ
 
 LE PROJET API SALLE DE SPORT
 Objectifs:
